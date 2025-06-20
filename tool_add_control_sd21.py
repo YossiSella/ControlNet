@@ -26,7 +26,8 @@ def get_node_name(name, parent_name):
 
 model = create_model(config_path='./models/cldm_v21.yaml')
 
-pretrained_weights = torch.load(input_path)
+# In PyTorch 2.6+, weights_only defaults to True and causes UnpicklingError if loading full checkpoint
+pretrained_weights = torch.load(input_path, weights_only=False)
 if 'state_dict' in pretrained_weights:
     pretrained_weights = pretrained_weights['state_dict']
 
